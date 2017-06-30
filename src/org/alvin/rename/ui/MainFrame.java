@@ -59,7 +59,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel2.setText("文件前缀：");
 
-        perfixTxt.setText("VR");
+        perfixTxt.setText("vr");
 
         jButton2.setText("开始生成");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -148,7 +148,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (files == null) {
             return;
         }
-        int res = JOptionPane.showConfirmDialog(null, "请确认备份好原文件" ,"提示",JOptionPane.OK_CANCEL_OPTION);
+        int res = JOptionPane.showConfirmDialog(null, "请确认选择的目录，不然会导致文件被批量改名\n请确认备份好原文件" ,"提示",JOptionPane.OK_CANCEL_OPTION);
         if(res != JOptionPane.OK_OPTION){
            return;
         }
@@ -156,7 +156,15 @@ public class MainFrame extends javax.swing.JFrame {
         for (int i = 0; i < files.length; i++) {
             File tmp = files[i];
             String type = tmp.getName().substring(tmp.getName().lastIndexOf("."));
-            File newFile = new File(file,perfix + (i + 1) + type);
+            String name = "" ;
+            if(i +1 < 100){
+                name +="0";
+            }
+            if(i +1 < 10){
+                name += "0";
+            }
+            name += (i+1);
+            File newFile = new File(file,perfix + name + type);
             tmp.renameTo(newFile);
             this.consoleTxt.append(tmp.getName() +"  ==> " + newFile.getName() +"\n");
         }
